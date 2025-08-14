@@ -41,7 +41,7 @@ export const LoginScreen = ({ users }: Props) => {
     }
 
     const handleLogin = (): void => {
-        console.log(formLogin)
+        // console.log(formLogin)
 
         if (formLogin.username == '' || formLogin.password == '') {
             Alert.alert('Error', 'Por favor, complete todos los campos');
@@ -52,6 +52,8 @@ export const LoginScreen = ({ users }: Props) => {
             Alert.alert('Error', 'Usuario y/o contraseña incorrecto');
             return;
         }
+
+        navigation.dispatch(CommonActions.navigate({ name: 'Home' }))
 
     }
 

@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { PRIMARY_COLOR } from "../commons/constants";
+import { PRIMARY_COLOR, SECUNDARY_COLOR } from "../commons/constants";
 
 export const styles = StyleSheet.create({
     textWelcome: {
@@ -39,5 +39,18 @@ export const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 245,
         right: 10,
-    }
+    },
+
+    containerModal: {
+        flex: 1,
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+    modal: {
+        backgroundColor: SECUNDARY_COLOR,
+        padding: 15,
+        borderRadius: 15
+    },
 })

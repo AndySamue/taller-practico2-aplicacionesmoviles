@@ -3,6 +3,7 @@ import { LoginScreen } from '../screens/LoginScreen';
 import { RegisterScreen } from '../screens/RegisterScreen';
 import { BACKGROUNDCOLOR, PRIMARY_COLOR } from '../commons/constants';
 import { useState } from 'react';
+import { HomeScreen } from '../screens/HomeScreen/HomeScreen';
 
 const Stack = createStackNavigator();
 
@@ -38,6 +39,7 @@ export const StackNavigator = () => {
             }}>
             <Stack.Screen name="Login" options={{ headerShown: false }} children={() => <LoginScreen users={listUser} />} />
             <Stack.Screen name="Register" options={{ headerShown: false }} children={() => <RegisterScreen user={listUser} addUser={addUser} />} />
+            <Stack.Screen name="Home" options={{ headerShown: false }} component={HomeScreen} />
         </Stack.Navigator>
     );
 }
