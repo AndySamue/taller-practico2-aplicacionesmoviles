@@ -7,7 +7,7 @@ import { InputComponents } from '../components/InputComponents'
 import { styles } from '../theme/appTheme';
 import { ButtonComponents } from '../components/ButtonComponents'
 import { StackScreenProps } from '@react-navigation/stack'
-import { InputComponentsRegister } from '../components/InputComponentsRegister'
+import { CommonActions, useNavigation } from '@react-navigation/native'
 
 type Props = StackScreenProps<any, any>;
 
@@ -19,7 +19,7 @@ interface FormRegister {
     password: string;
 }
 
-export const RegisterScreen = ({ navigation }: Props) => {
+export const RegisterScreen = ({ }: Props) => {
 
     const [formRegister, setFormRegister] = useState<FormRegister>({
         name: '',
@@ -29,11 +29,13 @@ export const RegisterScreen = ({ navigation }: Props) => {
         password: '',
     })
 
-    const handleLogin = (): void => {
+    const navigation = useNavigation();
+
+    const handleSingUp = (): void => {
         console.log(formRegister)
     }
 
-    const changeRegister = (property: string, value: string): void => {
+    const changeForm = (property: string, value: string): void => {
         setFormRegister({ ...formRegister, [property]: value });
     }
 
@@ -44,36 +46,36 @@ export const RegisterScreen = ({ navigation }: Props) => {
             <BodyComponents>
                 <View style={styles.containerForm}>
                     <Text style={styles.textForm}>Ingresa tu nombre:</Text>
-                    <InputComponentsRegister placeHolder='Nombre'
+                    <InputComponents placeHolder='Nombre'
                         keyboardType='default'
-                        changeRegister={changeRegister}
+                        changeForm={changeForm}
                         property='name' />
                     <Text style={styles.textForm}>Ingresa tu apellido:</Text>
-                    <InputComponentsRegister placeHolder='Apellido'
+                    <InputComponents placeHolder='Apellido'
                         keyboardType='default'
-                        changeRegister={changeRegister}
+                        changeForm={changeForm}
                         property='lastName' />
                     <Text style={styles.textForm}>Ingresa tu email:</Text>
-                    <InputComponentsRegister placeHolder='Correo'
+                    <InputComponents placeHolder='Correo'
                         keyboardType='email-address'
-                        changeRegister={changeRegister}
+                        changeForm={changeForm}
                         property='email' />
                     <Text style={styles.textForm}>Crea un usuario:</Text>
-                    <InputComponentsRegister placeHolder='Usuario'
+                    <InputComponents placeHolder='Usuario'
                         keyboardType='default'
-                        changeRegister={changeRegister}
+                        changeForm={changeForm}
                         property='user' />
                     <Text style={styles.textForm}>Crea una contraseña:</Text>
-                    <InputComponentsRegister placeHolder='Contraseña'
+                    <InputComponents placeHolder='Contraseña'
                         keyboardType='default'
-                        changeRegister={changeRegister}
+                        changeForm={changeForm}
                         property='password' />
                 </View>
                 <ButtonComponents textButton='Crear Cuenta'
-                    handleLogin={handleLogin} />
+                    onPress={handleSingUp} />
 
                 <TouchableOpacity
-                    onPress={() => navigation.navigate('Login')}>
+                    onPress={() => navigation.dispatch(CommonActions.navigate({ name: 'Login' }))}>
                     <Text style={styles.textRegister}>¿Ya tienes cuenta? Inicia sesión aquí</Text>
                 </TouchableOpacity>
 

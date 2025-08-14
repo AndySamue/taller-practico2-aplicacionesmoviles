@@ -8,6 +8,7 @@ import { InputComponents } from '../components/InputComponents'
 import { StackScreenProps } from '@react-navigation/stack'
 import { ButtonComponents } from '../components/ButtonComponents'
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { CommonActions, useNavigation } from '@react-navigation/native'
 
 type Props = StackScreenProps<any, any>;
 
@@ -16,9 +17,7 @@ interface FormLogin {
     password: string;
 }
 
-
-
-export const LoginScreen = ({ navigation }: Props) => {
+export const LoginScreen = ({ }: Props) => {
 
     const [formLogin, setFormLogin] = useState<FormLogin>({
         username: '',
@@ -27,6 +26,8 @@ export const LoginScreen = ({ navigation }: Props) => {
     });
 
     const [hiddenPassword, setHiddenPassword] = useState<boolean>(true)
+
+    const navigation = useNavigation();
 
     const changeForm = (property: string, value: string): void => {
         setFormLogin({ ...formLogin, [property]: value });
@@ -60,7 +61,7 @@ export const LoginScreen = ({ navigation }: Props) => {
                         style={styles.icon}
                         onPress={() => setHiddenPassword(!hiddenPassword)} />
                     <ButtonComponents textButton='Iniciar Sesión'
-                        handleLogin={handleLogin} />
+                        onPress={handleLogin} />
                     <Image
                         source={{
                             uri: 'https://imgs.search.brave.com/rtonddmUvxgJ1wUcUGhoNiLrDABSpejdjf3AgoWUvLk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4t/aWNvbnMtcG5nLmZy/ZWVwaWsuY29tLzI1/Ni8yMDcyLzIwNzI2/NTYucG5nP3NlbXQ9/YWlzX3doaXRlX2xh/YmVs'
@@ -68,7 +69,7 @@ export const LoginScreen = ({ navigation }: Props) => {
                         style={styles.image} />
                 </View>
                 <TouchableOpacity
-                    onPress={() => navigation.navigate('Register')}>
+                    onPress={() => navigation.dispatch(CommonActions.navigate({ name: 'Register' }))}>
                     <Text style={styles.textRegister}>¿Nuevo por aquí? Regístrate aquí</Text>
                 </TouchableOpacity>
             </BodyComponents>

@@ -4,13 +4,13 @@ import { TERTIARY_COLOR } from '../commons/constants';
 
 interface Props {
     textButton: string;
-    handleLogin: () => void;
+    onPress: () => void;
 }
 
-export const ButtonComponents = ({ textButton, handleLogin }: Props) => {
+export const ButtonComponents = ({ textButton, onPress }: Props) => {
     return (
         <TouchableOpacity
-            onPress={handleLogin}
+            onPress={onPress}
             style={style.button}>
             <Text style={style.buttonText}>{textButton}</Text>
         </TouchableOpacity>
