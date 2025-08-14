@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Image, StatusBar, Text, TouchableOpacity, View } from 'react-native'
+import { Alert, Image, StatusBar, Text, TouchableOpacity, View } from 'react-native'
 import { TitleComponent } from '../components/TitleComponent'
 import { BodyComponents } from '../components/BodyComponents'
 import { BACKGROUNDCOLOR } from '../commons/constants'
@@ -9,20 +9,22 @@ import { StackScreenProps } from '@react-navigation/stack'
 import { ButtonComponents } from '../components/ButtonComponents'
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { CommonActions, useNavigation } from '@react-navigation/native'
+import { User } from '../navigator/StackNavigator'
 
-type Props = StackScreenProps<any, any>;
+interface Props {
+    users: User[];
+}
 
 interface FormLogin {
     username: string;
     password: string;
 }
 
-export const LoginScreen = ({ }: Props) => {
+export const LoginScreen = ({ users }: Props) => {
 
     const [formLogin, setFormLogin] = useState<FormLogin>({
         username: '',
         password: '',
-
     });
 
     const [hiddenPassword, setHiddenPassword] = useState<boolean>(true)
@@ -33,8 +35,24 @@ export const LoginScreen = ({ }: Props) => {
         setFormLogin({ ...formLogin, [property]: value });
     }
 
+    const verifiyUser = (): User | undefined => {
+        const existUser = users.find(user => user.username == formLogin.username && formLogin.password);
+        return existUser;
+    }
+
     const handleLogin = (): void => {
         console.log(formLogin)
+
+        if (formLogin.username == '' || formLogin.password == '') {
+            Alert.alert('Error', 'Por favor, complete todos los campos');
+            return;
+        }
+
+        if (!verifiyUser()) {
+            Alert.alert('Error', 'Usuario y/o contraseña incorrecto');
+            return;
+        }
+
     }
 
     return (
