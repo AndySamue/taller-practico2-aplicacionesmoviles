@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 import { PRIMARY_COLOR } from '../../../commons/constants'
 import { Cart } from '../HomeScreen'
 
+
 interface Props {
     visible: boolean;
     setShowModal: () => void;
@@ -14,6 +15,8 @@ interface Props {
 
 export const ModalCart = ({ visible, setShowModal, cart }: Props) => {
     const { width } = useWindowDimensions();
+
+    
 
     // Función para mostrar total pagar
     const totalPay = () => {
@@ -24,6 +27,7 @@ export const ModalCart = ({ visible, setShowModal, cart }: Props) => {
 
         return total;
     }
+
 
     return (
         <Modal visible={visible} animationType='fade' transparent={true}>

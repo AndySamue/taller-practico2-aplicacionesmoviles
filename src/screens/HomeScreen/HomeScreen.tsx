@@ -34,7 +34,7 @@ export const HomeScreen = () => {
     ];
 
     // Hook useStete para manejar la lista de productos
-    const [productList, setProductList] = useState<Product[]>(products); // Arreglo lista de productos actualizados
+    const [productList, setProductList] = useState<Product[]>(products);
 
     // Hook useState para gestionar los productos del carrito
     const [cart, setCart] = useState<Cart[]>([]);
@@ -42,41 +42,52 @@ export const HomeScreen = () => {
     // Hook useState para manejar el estado del modal
     const [showModal, setShowModal] = useState<boolean>(false);
 
-    // Función para actualizar el stock de los productos
+    // Función para actualizar el stock y el carrito
     const updateStock = (id: number, quantity: number): void => {
-        const updateProducts = productList.map(product => (product.id == id)
-            ? { ...product, stock: product.stock - quantity }
-            : product)
-        // Actualizar el arreglo de productos
-        setProductList(updateProducts);
-        // console.log (cart)
+        setProductList(prevList =>
+            prevList.map(product =>
+                product.id === id
+                    ? { ...product, stock: product.stock - quantity }
+                    : product
+            )
+        );
 
-        // Llamar función para añadir carrito
-        addProduct(id, quantity)
-    }
+        // Luego actualizamos el carrito
+        addProduct(id, quantity);
+    };
 
-    // Función agregar los productos al arreglo del carrito
+    // Función para añadir productos sin duplicar
     const addProduct = (id: number, quantity: number): void => {
-        const product = productList.find(product => product.id == id);
+        const product = productList.find(product => product.id === id);
+        if (!product) return;
 
-        // Validar que el producto si exista
-        if (!product) { // producto - undefined
-            return;
-        }
+        setCart(prevCart => {
+            const existingIndex = prevCart.findIndex(item => item.id === id);
 
-        // Crear objeto del producto para el carrito de compras
-        const newProductCart: Cart = {
-            id: product?.id,
-            name: product.name,
-            price: product.price,
-            quantity: quantity,
-            total: product.price * quantity
-        }
+            if (existingIndex !== -1) {
+                // Si ya existe, actualizar cantidad y total
+                const updatedCart = [...prevCart];
+                updatedCart[existingIndex] = {
+                    ...updatedCart[existingIndex],
+                    quantity: updatedCart[existingIndex].quantity + quantity,
+                    total: (updatedCart[existingIndex].quantity + quantity) * product.price
+                };
+                return updatedCart;
+            }
 
-        // Añadir en el arreglo del carrito
-        setCart([...cart, newProductCart]);
-
-    }
+            // Si no existe, agregarlo
+            return [
+                ...prevCart,
+                {
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    quantity,
+                    total: product.price * quantity
+                }
+            ];
+        });
+    };
 
     return (
         <View>
