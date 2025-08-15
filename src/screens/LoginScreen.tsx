@@ -36,14 +36,14 @@ export const LoginScreen = ({ users }: Props) => {
     }
 
     const verifiyUser = (): User | undefined => {
-        const existUser = users.find(user => user.username == formLogin.username && formLogin.password);
+        const existUser = users.find(user => user.username == formLogin.username.trim() && user.password == formLogin.password.trim());
         return existUser;
     }
 
     const handleLogin = (): void => {
         // console.log(formLogin)
 
-        if (formLogin.username == '' || formLogin.password == '') {
+        if (formLogin.username.trim() == '' || formLogin.password.trim() == '') {
             Alert.alert('Error', 'Por favor, complete todos los campos');
             return;
         }

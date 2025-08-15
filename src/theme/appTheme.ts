@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { PRIMARY_COLOR, SECUNDARY_COLOR } from "../commons/constants";
+import { PRIMARY_COLOR, SECUNDARY_COLOR, TERTIARY_COLOR } from "../commons/constants";
 
 export const styles = StyleSheet.create({
     textWelcome: {
@@ -53,4 +53,75 @@ export const styles = StyleSheet.create({
         padding: 15,
         borderRadius: 15
     },
+
+    headerModal: {
+        flexDirection: 'row',
+        borderBottomColor: '#ccc',
+        borderBottomWidth: 1,
+        padding: 10
+    },
+
+    containerIconModal: {
+        flex: 1,
+        alignItems: 'flex-end'
+    },
+
+    titleModal: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: PRIMARY_COLOR
+    },
+
+    imageModal: {
+        width: 150,
+        height: 140,
+        marginTop: 10
+    },
+
+    containerQuantity: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+
+    buttonQuantity: {
+        height: 50,
+        width: 50,
+        backgroundColor: PRIMARY_COLOR,
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: 15,
+        borderRadius: 25
+    },
+
+    buttonQuantityText: {
+        color: SECUNDARY_COLOR,
+        fontSize: 20,
+        fontWeight: 'bold'
+    },
+
+    textQuantity: {
+        fontSize: 18
+    },
+
+    buttonAddCart: {
+        backgroundColor: TERTIARY_COLOR,
+        marginTop: 15,
+        paddingVertical: 10,
+        alignItems: 'center',
+        borderRadius: 5
+    },
+
+    buttonAddCartText: {
+        color: PRIMARY_COLOR,
+        fontWeight: 'bold'
+    },
+
+    textStock: {
+        fontSize: 18,
+        color: TERTIARY_COLOR,
+        textAlign: 'center',
+        fontWeight: 'bold',
+        marginTop: 5
+    }
 })

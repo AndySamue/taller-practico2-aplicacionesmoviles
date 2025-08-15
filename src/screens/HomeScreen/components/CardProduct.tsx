@@ -1,40 +1,42 @@
 import React, { useState } from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
-import { Product } from '../HomeScreen'
+import { Product } from '../HomeScreen';
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { PRIMARY_COLOR } from '../../../commons/constants';
-import { Modal } from 'react-native';
 import { ModalProduct } from './ModalProduct';
 
 interface Props {
     item: Product;
+    updateStock: (id: number, quantity: number) => void;
 }
 
-export const CardProduct = ({ item }: Props) => {
+export const CardProducts = ({ item, updateStock }: Props) => {
 
+    // Hook useState manejar el estado del modal
     const [showModal, setShowModal] = useState<boolean>(false);
 
     return (
         <View>
-            <View style={localstyles.container}>
-                <Image
-                    source={{ uri: item.pathImage }}
-                    style={localstyles.image} />
+            <View style={styles.container}>
+                <Image source={{ uri: item.pathImage }} style={styles.image} />
                 <View>
-                    <Text style={localstyles.title}>{item.name}</Text>
-                    <Text>Precio: ${item.price.toFixed(2)}</Text>
+                    <Text style={styles.title}>{item.name}</Text>
+                    <Text> Precio: ${item.price.toFixed(2)}</Text>
                 </View>
-                <View style={localstyles.containerIcon}>
+                <View style={styles.containerIcon}>
                     <Icon name='add-shopping-cart' size={30} color={PRIMARY_COLOR}
                         onPress={() => setShowModal(!showModal)} />
                 </View>
             </View>
-            <ModalProduct visible={showModal} item={item} />
+            <ModalProduct visible={showModal} 
+            item={item} 
+            setShowModal={() => setShowModal(!showModal)} 
+            updateStock={updateStock}/>
         </View>
     )
 }
 
-const localstyles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         padding: 10,
         borderWidth: 1,

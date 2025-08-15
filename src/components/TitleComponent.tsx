@@ -24,14 +24,9 @@ export const TitleComponent = ({ title }: Props) => {
 const style = StyleSheet.create({
     title: {
         color: PRIMARY_COLOR,
-        borderRadius:50,
         fontSize: 27,
         fontWeight: 'bold',
         paddingVertical: 30,
         paddingHorizontal: 30,
-        textDecorationColor: PRIMARY_COLOR,
-        textShadowColor: 'rgba(0, 0, 0, 0.2)',
-        textShadowOffset: { width: 1, height: 1 },
-        textShadowRadius: 2
     }
 })
