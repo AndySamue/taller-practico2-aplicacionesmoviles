@@ -14,6 +14,11 @@ export const styles = StyleSheet.create({
         marginTop: 40
     },
 
+    containerFormRegister: {
+        marginVertical: 10,
+        marginTop: 5
+    },
+
     textRegister: {
         color: '#000000',
         textAlign: 'center',

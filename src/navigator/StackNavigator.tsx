@@ -11,14 +11,16 @@ export interface User {
     id: number;
     name: string;
     lastName: string;
+    phone: string;
     email: string;
     username: string;
     password: string;
+    confirmPassword: string;
 }
 
 const users: User[] = [
-    { id: 1, name: 'Andy', lastName: 'Limaico', username: 'alimaico', password: '123456', email: 'alimaico@gmail.com' },
-    { id: 2, name: 'Tamia', lastName: 'Flores', username: 'tflores', password: '654321', email: 'tflores@gmail.com' },
+    { id: 1, name: 'Andy', lastName: 'Limaico', phone: '0991028892', username: 'alimaico', password: '123456',confirmPassword:'123456', email: 'alimaico@gmail.com' },
+    { id: 2, name: 'Tamia', lastName: 'Flores', phone: '0996112177', username: 'tflores', password: '654321', confirmPassword:'654321', email: 'tflores@gmail.com' },
 
 ]
 

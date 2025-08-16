@@ -17,9 +17,11 @@ interface Props {
 interface FormRegister {
     name: string;
     lastName: string;
+    phone: string;
     email: string;
     user: string;
     password: string;
+    confirmPassword: string;
 }
 
 export const RegisterScreen = ({ user, addUser }: Props) => {
@@ -27,9 +29,11 @@ export const RegisterScreen = ({ user, addUser }: Props) => {
     const [formRegister, setFormRegister] = useState<FormRegister>({
         name: '',
         lastName: '',
+        phone: '',
         email: '',
         user: '',
         password: '',
+        confirmPassword: ''
     })
 
     const navigation = useNavigation();
@@ -53,6 +57,11 @@ export const RegisterScreen = ({ user, addUser }: Props) => {
         return existEmail;
     }
 
+    const verifyPassword = () => {
+        const confirmPass = user.find(user => user.password == formRegister.confirmPassword);
+        return confirmPass
+    }
+
     const handleSingUp = (): void => {
         console.log(formRegister)
 
@@ -71,13 +80,20 @@ export const RegisterScreen = ({ user, addUser }: Props) => {
             return;
         }
 
+        if (!verifyPassword()) {
+            Alert.alert('Error', 'Contraseña Incorrecta');
+            return;
+        }
+
         const newUser: User = {
             id: getIdUser(),
             name: formRegister.name,
             lastName: formRegister.lastName,
+            phone: formRegister.phone,
             email: formRegister.email,
             username: formRegister.user,
-            password: formRegister.password
+            password: formRegister.password,
+            confirmPassword: formRegister.confirmPassword
         }
 
         addUser(newUser);
@@ -93,7 +109,7 @@ export const RegisterScreen = ({ user, addUser }: Props) => {
             <StatusBar backgroundColor={BACKGROUNDCOLOR} />
             <TitleComponent title='REGISTRA TUS DATOS' />
             <BodyComponents>
-                <View style={styles.containerForm}>
+                <View style={styles.containerFormRegister}>
                     <Text style={styles.textForm}>Ingresa tu nombre:</Text>
                     <InputComponents placeHolder='Nombre'
                         keyboardType='default'
@@ -104,6 +120,11 @@ export const RegisterScreen = ({ user, addUser }: Props) => {
                         keyboardType='default'
                         changeForm={changeForm}
                         property='lastName' />
+                    <Text style={styles.textForm}>Ingresa tu celular:</Text>
+                    <InputComponents placeHolder='Celular'
+                        keyboardType='default'
+                        changeForm={changeForm}
+                        property='phone' />
                     <Text style={styles.textForm}>Ingresa tu email:</Text>
                     <InputComponents placeHolder='Correo'
                         keyboardType='email-address'
@@ -119,6 +140,11 @@ export const RegisterScreen = ({ user, addUser }: Props) => {
                         keyboardType='default'
                         changeForm={changeForm}
                         property='password' />
+                    <Text style={styles.textForm}>Confirmar contraseña:</Text>
+                    <InputComponents placeHolder='Contraseña'
+                        keyboardType='default'
+                        changeForm={changeForm}
+                        property='confirmPassword' />
                 </View>
                 <ButtonComponents textButton='Crear Cuenta'
                     onPress={handleSingUp} />
